@@ -13,7 +13,7 @@
 ## Índice
 
 - [Instalação](#instalação)
-- [Uso](#uso)
+- [Uso com Docker](#uso-com-docker)
 - [Visão Computacional e YOLOv5](#visão-computacional-e-yolov5)
 - [Contribuindo](#contribuindo)
 - [Licença](#licença)
@@ -21,6 +21,12 @@
 - [Agradecimentos](#agradecimentos)
 
 ## Instalação
+
+Você pode rodar este projeto de duas formas:
+- Manualmente, instalando Python e dependências (detalhado abaixo)
+- **OU** com Docker Compose (recomendado)
+
+### Instalação manual (modo alternativo)
 
 ### Pré-requisitos
 
@@ -32,43 +38,72 @@
 
 ### Passos de Instalação
 
-1. Faça um fork do repositório:
-
-   ```bash
-   git clone https://github.com/seu-usuario/forca-em-sinais.git
-   cd forca-em-sinais
-   ```
-
-2. Crie um ambiente virtual e ative-o:
-
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # Para Windows: .venv\Scripts\activate
-   ```
-
-3. Instale as dependências:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Certifique-se de que você tem o modelo YOLO treinado em `src/data/train/weights/best.pt`. Se necessário, ajuste o caminho no código para corresponder à localização do seu modelo. Ajuste o caminho em `src/app/gui.py`.
-
-5. Ajuste o caminho dos plugins do Qt no `main.py`:
-
-   ```python
-   import os
-   # Trocar o path para o diretório onde estão os plugins do Qt
-   os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = "seu_caminho_aqui/forca_em_sinais/.venv/lib/python3.12/site-packages/cv2/qt/plugins"
-   ```
-
-## Uso
-
-Para iniciar o jogo, execute o script `main.py`:
-
 ```bash
+git clone https://github.com/seu-usuario/forca-em-sinais.git
+cd forca-em-sinais
+
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+pip install -r requirements.txt
 python src/main.py
 ```
+
+> Certifique-se de ter o modelo YOLO em `src/data/train/weights/best.pt`
+
+### Uso com Docker
+
+### Pré-requisitos
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+#### 1. Clonar o projeto
+```bash
+git clone https://github.com/seu-usuario/forca-em-sinais.git
+cd forca-em-sinais
+```
+
+#### 2. Preparar ambiente (Linux)
+```bash
+xhost +local:docker
+```
+
+#### 3. Rodar com Docker Compose
+```bash
+docker-compose up --build  # Primeira vez
+```
+Depois, pode rodar apenas:
+```bash
+docker-compose up
+```
+
+### Para usuários Windows/macOS
+
+Rodar interfaces gráficas com PyQt5 via Docker no Windows/macOS exige um servidor X. Siga os passos abaixo:
+
+#### Passo 1: Instalar um servidor X
+- Baixe e instale o [VcXsrv](https://sourceforge.net/projects/vcxsrv/) no Windows (ou [XQuartz](https://www.xquartz.org/) no macOS)
+
+#### Passo 2: Iniciar o servidor X
+- Abra o VcXsrv com as seguintes opções:
+  - **Multiple windows**
+  - **Start no client**
+  - Marque a opção **Disable access control**
+
+#### Passo 3: Criar ou editar o arquivo `.env` na raiz do projeto
+```env
+DISPLAY=host.docker.internal:0
+MODEL_PATH=src/data/train/weights/best.pt
+```
+
+#### Passo 4: Executar o projeto
+```bash
+docker-compose up --build
+```
+
+> Observação: o acesso à câmera pode não funcionar nativamente no Windows. Para testes, você pode adaptar o código para usar um vídeo gravado em vez da câmera ao vivo.
+
+---
 
 ### Controles do Jogo
 
