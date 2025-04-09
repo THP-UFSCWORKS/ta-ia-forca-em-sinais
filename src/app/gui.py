@@ -4,8 +4,11 @@ from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QPushButton, QLab
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QPixmap, QImage
 import cv2
+import os
 from detection.sign_detector_realtime import SignDetectorRealTime
 from game.hangman_game import HangmanGame
+
+MODEL_PATH = os.getenv("MODEL_PATH", "src/data/train/weights/best.pt")
 
 # Definindo uma classe auxiliar para a interface do usuário
 class UIComponents:
@@ -64,7 +67,7 @@ class GameWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Jogo da Forca com Sinais")
         self.setGeometry(100, 100, 800, 600)
-        self.detector = SignDetectorRealTime("/home/thehprogrammer/Documentos/Creche/up_to_date/Semester_08/IA2/forca_em_sinais/data/train/weights/best.pt")  # Atualize este caminho conforme necessário
+        self.detector = SignDetectorRealTime(MODEL_PATH)
         self.detector.load_model()
         self.ui = UIComponents(self)
         self.game_attr = GameAttributes()
