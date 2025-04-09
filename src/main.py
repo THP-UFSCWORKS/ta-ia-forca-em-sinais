@@ -1,11 +1,13 @@
 # pylint: disable=no-name-in-module, import-error
 import os
 import sys
-from PyQt5.QtWidgets import QApplication  # Import de terceiros deve vir antes dos imports locais
+import cv2
+from PyQt5.QtWidgets import QApplication
 from app.gui import MainWindow
 
-# Trocar o path para o diretório onde estão os plugins do Qt
-os.environ['QT_QPA_PLATFORM_PLUGIN_PATH'] = "/home/thehprogrammer/Documentos/Creche/up_to_date/Semester_08/IA2/forca_em_sinais/.venv/lib/python3.12/site-packages/cv2/qt/plugins"
+cv2_path = os.path.dirname(cv2.__file__)
+plugin_path = os.path.join(cv2_path, "qt", "plugins", "platforms")
+os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = plugin_path
 
 def main():
     app = QApplication(sys.argv)
