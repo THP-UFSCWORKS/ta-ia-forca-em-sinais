@@ -39,7 +39,7 @@ Você pode rodar este projeto de duas formas:
 ### Passos de Instalação
 
 ```bash
-git clone https://github.com/seu-usuario/forca-em-sinais.git
+git clone https://github.com/THP-UFSCWORKS/ta-ia-forca-em-sinais.git
 cd forca-em-sinais
 
 python -m venv .venv
@@ -59,7 +59,7 @@ python src/main.py
 
 #### 1. Clonar o projeto
 ```bash
-git clone https://github.com/seu-usuario/forca-em-sinais.git
+git clone https://github.com/THP-UFSCWORKS/ta-ia-forca-em-sinais.git
 cd forca-em-sinais
 ```
 
