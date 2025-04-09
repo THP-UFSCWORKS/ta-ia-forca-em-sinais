@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+    container_name: forca-em-sinais
+    environment:
+      - DISPLAY=${DISPLAY}
+      - MODEL_PATH=${MODEL_PATH}
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    devices:
+      - "/dev/video0:/dev/video0"
+    stdin_open: true
+    tty: true
