@@ -1,0 +1,8 @@
+# backend/Dockerfile.test
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY . .
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+CMD ["coverage", "run", "-m", "pytest", "tests"]
